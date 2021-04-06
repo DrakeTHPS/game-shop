@@ -1,0 +1,17 @@
+.frontPage{
+    flex:1;
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+}
+
+.pedestal{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 450px;
+    background-color: black;
+    justify-content: center;
+    align-items: center;
+
+}
