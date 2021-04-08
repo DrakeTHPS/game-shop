@@ -1,5 +1,5 @@
 .frontPage{
-    flex:1;
+    flex: 1;
     display: flex;
     flex-direction: column;
     width: 100vw;
@@ -13,5 +13,10 @@
     background-color: black;
     justify-content: center;
     align-items: center;
+}
 
+.catalogArea{
+    flex: 1;
+    background-color: #2a475e;
+    padding: 5% 10%;
 }

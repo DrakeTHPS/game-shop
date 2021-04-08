@@ -29,6 +29,8 @@ const FrontPage = (props) =>{
             <div className={styles.pedestal}>
                 {pedestal.map(game => <CustomCard gameInfo={game}/>)}
             </div>
+            <div className={styles.catalogArea}>
+            </div>
         </div>
     )
 }
