@@ -1,0 +1,43 @@
+.gameCard{
+    height: 70px;
+    width: 700px;
+    background-color: black;
+    color: lightgray;
+    display: flex;
+    flex-direction: row;
+    margin: 5px;
+    align-items: center;
+}
+
+.gameCard:hover{
+    background-color: lightcyan;
+    color: black;
+}
+
+.gameImg{
+    height: 100%;
+    width: 20%;
+}
+
+.gameInfo{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 0 20px;
+    flex:1;
+}
+.genre{
+    margin-right: 1em;
+    font-size: 12px;
+}
+
+.discount{
+    background-color: green;
+    color: #a4d007;
+    padding: 0 5px;
+}
+
+.priceTag{
+    font-size: 15px;
+    margin: 0 10px;
+}

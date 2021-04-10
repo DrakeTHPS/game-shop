@@ -15,3 +15,16 @@ button{
     align-items: center;
     height: 100vh;
 }
+
+a{
+    color: lightgray;
+    margin-right: 10px;
+}
+
+.buyButton{
+    width: 100px;
+    height: 30px;
+    background-color: #5c7e10;
+    font-weight: normal;
+    color: white;
+}

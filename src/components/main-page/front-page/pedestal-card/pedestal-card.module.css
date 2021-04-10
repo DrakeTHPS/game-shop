@@ -3,11 +3,11 @@
     flex-direction: column;
     margin: 10px 30px;
     width: 250px;
-    height: 350px;
+    height: 400px;
     background-color: #282c34;
     color: white;
     border-radius: 5px;
-    padding: 1px;
+    padding: 2px;
 }
 
 .poster{
@@ -25,19 +25,15 @@
 }
 
 .title{
-    height: 35%;
+    height: 25%;
     text-transform: capitalize;
+}
+.genre{
+    margin-right: 1em;
+    font-size: 12px;
 }
 .priceTag{
     padding: 3px;
     margin-right: 1em;
     background-color: black;
-}
-
-.buyButton{
-    width: 40%;
-    height: 20%;
-    background-color: #5c7e10;
-    font-weight: normal;
-    color: white;
 }
