@@ -1,0 +1,26 @@
+.basket{
+    height: 100%;
+    padding: 1% 20%;
+    color: lightgray;
+}
+
+.checkout{
+    margin: 5px;
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    background-color: black;
+    justify-content: space-between;
+    padding: 10px;
+    height: 100px;
+}
+
+.total{
+    display: flex;
+    justify-content: space-between;
+}
+
+.checkoutButton{
+    margin-left: auto;
+    border-radius: 2px;
+}

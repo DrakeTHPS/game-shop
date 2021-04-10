@@ -15,9 +15,9 @@ const FrontPage = (props) => {
 
 
     return (
-        <div className={styles.frontPage}>
+        <div className={"content"}>
             <div className={styles.pedestal}>
-                {props.topGames.map(game => <PedestalCard gameInfo={game}/>)}
+                {props.topGames.map(game => <PedestalCard key={game.id} gameInfo={game}/>)}
             </div>
             <div className={styles.catalogArea}>
                 <Catalog/>

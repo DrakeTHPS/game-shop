@@ -3,8 +3,9 @@ import styles from './header.module.css';
 import {RiGameFill} from 'react-icons/ri'
 import {Nav, Navbar, NavItem} from "reactstrap";
 import {NavLink} from 'react-router-dom'
+import {connect} from "react-redux";
 
-const Header = () => {
+const Header = (props) => {
     return (
         <div className={styles.header}>
             <div className={styles.logo}>
@@ -16,8 +17,11 @@ const Header = () => {
                     <NavItem>
                         <NavLink to="/">Магазин</NavLink>
                     </NavItem>
-                    <NavItem >
+                    {props.basket.length !== 0 && <NavItem>
                         <NavLink to="/basket">Корзина</NavLink>
+                    </NavItem>}
+                    <NavItem>
+                        <NavLink to="/management">Управление</NavLink>
                     </NavItem>
                     <NavItem>
                         <NavLink to="/auth">Войти</NavLink>
@@ -28,4 +32,8 @@ const Header = () => {
     )
 }
 
-export default Header;
+const mapStateToProps = state => ({
+    basket: state.basket.basket,
+})
+
+export default connect(mapStateToProps)(Header);

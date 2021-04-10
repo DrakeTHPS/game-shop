@@ -46,17 +46,17 @@ const Catalog = (props)=>{
             <TabContent activeTab={activeTab}>
                 <TabPane tabId="1">
                     <div>
-                        {props.newGames.map(game=><GameCard game={game}/>)}
+                        {props.newGames.map(game=><GameCard key={game.id} game={game}/>)}
                     </div>
                 </TabPane>
                 <TabPane tabId="2">
                     <div>
-                        {props.topSales.map(game=><GameCard game={game}/>)}
+                        {props.topSales.map(game=><GameCard key={game.id} game={game}/>)}
                     </div>
                 </TabPane>
                 <TabPane tabId="3">
                     <div>
-                        {props.discountedGames.map(game=><GameCard game={game}/>)}
+                        {props.discountedGames.map(game=><GameCard key={game.id} game={game}/>)}
                     </div>
                 </TabPane>
             </TabContent>

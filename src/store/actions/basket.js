@@ -1,6 +1,6 @@
-import {GET_GAMES_ACTION} from "./games";
+export const SET_BASKET_ACTION = "SET_BASKET_ACTION";
 
 export const setBasket = basket =>({
-    type: GET_GAMES_ACTION,
+    type: SET_BASKET_ACTION,
     payload: basket
 })

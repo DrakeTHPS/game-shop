@@ -1,0 +1,30 @@
+.basketItem{
+    height: 70px;
+    display: flex;
+    flex-direction: row;
+    width: 600px;
+    background-color: black;
+    align-items: center;
+    padding: 5px;
+    margin: 5px;
+}
+
+.gameImg{
+    height: 100%;
+    width: 20%;
+    margin-right: 10px;
+}
+
+.title{
+    flex:1;
+}
+
+.priceTag{
+    font-size: 12px;
+}
+
+.deleteButton{
+    background-color: inherit;
+    color: lightgray;
+    text-decoration: underline;
+}
