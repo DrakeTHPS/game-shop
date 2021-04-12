@@ -2,6 +2,8 @@ import React from 'react';
 import styles from './game-card.module.css';
 import {connect} from "react-redux";
 import {setBasket} from "../../../../../store/actions/basket";
+import {getRole} from "../../../../../utils/utils";
+import {ANONYMOUS} from "../../../../../utils/consts";
 
 const GameCard = (props) =>{
 
@@ -23,13 +25,14 @@ const GameCard = (props) =>{
                 <div className={styles.priceTag} style={props.game.discount && {textDecoration: "line-through"}}>{props.game.price} руб.</div>
                 {props.game.discount && <div>{Math.round((props.game.price / 100) * (100 - props.game.discount))} руб.</div>}
             </div>
-            <button className={"buyButton"} onClick={addToBasket}>В корзину</button>
+            {props.role!==ANONYMOUS && <button className={"buyButton"} onClick={addToBasket}>В корзину</button>}
         </div>
     )
 }
 
 const mapStateToProps = state =>({
-    basket: state.basket.basket
+    basket: state.basket.basket,
+    role: state.auth.role,
 })
 
 const mapDispatchToProps = dispatch => {

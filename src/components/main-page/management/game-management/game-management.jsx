@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {EditingState} from '@devexpress/dx-react-grid';
+import React, {useEffect, useState} from 'react';
+import {DataTypeProvider, EditingState} from '@devexpress/dx-react-grid';
 import {
     Grid,
     Table,
@@ -8,15 +8,51 @@ import {
     TableEditColumn,
 } from '@devexpress/dx-react-grid-bootstrap4';
 import '@devexpress/dx-react-grid-bootstrap4/dist/dx-react-grid-bootstrap4.css';
-import { setGames} from "../../../../store/actions/games";
+import {getGames} from "../../../../store/actions/games";
 import {connect} from "react-redux";
+import {Multiselect} from 'multiselect-react-dropdown';
+import {getGenres} from "../../../../store/actions/genres";
 
 const getRowId = row => row.id;
 
 const GameManagement = (props) => {
 
+    useEffect(() => {
+        props.getGames();
+        props.getGenres();
+    }, []);
+
+    const MultiSelectFormatter = ({value}) => {
+        return (
+            <span>
+            {value ? JSON.parse(value).map((genre) => genre.genre).join(', ') : ''}
+        </span>
+        );
+    }
+
+    const MultiSelectEditor = ({value, onValueChange}) => (
+        <Multiselect
+            options={props.genres} // Options to display in the dropdown
+            onSelect={(selectedList) => {
+                onValueChange(JSON.stringify(selectedList))
+            }} // Function will trigger on select event
+            onRemove={(selectedList) => {
+                onValueChange(JSON.stringify(selectedList))
+            }} // Function will trigger on remove event
+            selectedValues={value ? JSON.parse(value) : []} // Preselected value to persist in dropdown
+            displayValue="genre" // Property name to display in the dropdown options
+        />
+    );
+
+    const MultiSelectTypeProvider = props => (
+        <DataTypeProvider
+            formatterComponent={MultiSelectFormatter}
+            editorComponent={MultiSelectEditor}
+            {...props}
+        />
+    );
+
     const [columns] = useState([
-        {name: 'id', title: 'ID'},
         {name: 'title', title: 'Название'},
         {name: 'developer', title: 'Разработчик'},
         {name: 'genres', title: 'Жанры'},
@@ -25,35 +61,26 @@ const GameManagement = (props) => {
         {name: 'releaseDate', title: 'Дата выхода'},
     ]);
 
-    const [tableColumnExtensions] = useState([
-        {columnName: 'id', width: 60},
-        {columnName: 'price', width:80},
-    ]);
-    const [editingRowIds, setEditingRowIds] = useState([]);
-    const [addedRows, setAddedRows] = useState([]);
-    const [rowChanges, setRowChanges] = useState({});
+    const [multiSelectColumns] = useState(['genres']);
 
-    // const commitChanges = ({added, changed, deleted}) => {
-    //     let changedRows;
-    //     if (added) {
-    //         const startingAddedId = rows.length > 0 ? rows[rows.length - 1].id + 1 : 0;
-    //         changedRows = [
-    //             ...rows,
-    //             ...added.map((row, index) => ({
-    //                 id: startingAddedId + index,
-    //                 ...row,
-    //             })),
-    //         ];
-    //     }
-    //     if (changed) {
-    //         changedRows = rows.map(row => (changed[row.id] ? {...row, ...changed[row.id]} : row));
-    //     }
-    //     if (deleted) {
-    //         const deletedSet = new Set(deleted);
-    //         changedRows = rows.filter(row => !deletedSet.has(row.id));
-    //     }
-    //     setRows(changedRows);
-    // };
+    const [tableColumnExtensions] = useState([
+        {columnName: 'price', width: 80},
+    ]);
+
+    const commitChanges = ({added, changed, deleted}) => {
+        let changedRows;
+        console.log("Макс - лох")
+        if (added) {
+
+        }
+        if (changed) {
+
+        }
+        if (deleted) {
+
+        }
+
+    };
 
     return (
         <div className="card">
@@ -61,19 +88,19 @@ const GameManagement = (props) => {
                 rows={props.games ? props.games.map(game => {
                     return {
                         ...game,
-                        genres: game.genres.map(genre => {return genre.genre}).join(", ")
+                        genres: JSON.stringify(game.genres)
                     }
                 }) : []}
                 columns={columns}
                 getRowId={getRowId}
             >
+
+                <MultiSelectTypeProvider
+                    for={multiSelectColumns}
+                />
+
                 <EditingState
-                    editingRowIds={editingRowIds}
-                    onEditingRowIdsChange={setEditingRowIds}
-                    rowChanges={rowChanges}
-                    onRowChangesChange={setRowChanges}
-                    addedRows={addedRows}
-                    //onCommitChanges={commitChanges}
+                    onCommitChanges={commitChanges}
                 />
                 <Table
                     columnExtensions={tableColumnExtensions}
@@ -81,7 +108,7 @@ const GameManagement = (props) => {
                 <TableHeaderRow/>
                 <TableEditRow/>
                 <TableEditColumn
-                    showAddCommand={!addedRows.length}
+                    showAddCommand
                     showEditCommand
                     showDeleteCommand
                 />
@@ -90,13 +117,15 @@ const GameManagement = (props) => {
     );
 };
 
-const mapStateToProps = state =>({
+const mapStateToProps = state => ({
     games: state.games.games,
+    genres: state.genres.genres,
 })
 
 const mapDispatchToProps = dispatch => {
-    return{
-        setGames: (game) => dispatch(setGames(game))
+    return {
+        getGames: (game) => dispatch(getGames(game)),
+        getGenres: () => dispatch(getGenres()),
     }
 }
 

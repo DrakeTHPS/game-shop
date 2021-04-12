@@ -2,6 +2,8 @@ import React from 'react';
 import styles from './pedestal-card.module.css'
 import {connect} from "react-redux";
 import {setBasket} from "../../../../store/actions/basket";
+import {getRole} from "../../../../utils/utils";
+import {ANONYMOUS} from "../../../../utils/consts";
 
 const PedestalCard = (props) => {
 
@@ -24,7 +26,7 @@ const PedestalCard = (props) => {
                     <span className={styles.priceTag}
                           style={props.gameInfo.discount && {textDecoration: "line-through"}}>{props.gameInfo.price} руб.</span>
                 </div>
-                <button className={"buyButton"} onClick={addToBasket}>В корзину</button>
+                {props.role!==ANONYMOUS && <button className={"buyButton"} onClick={addToBasket}>В корзину</button>}
             </div>
         </div>
     )
@@ -32,6 +34,7 @@ const PedestalCard = (props) => {
 
 const mapStateToProps = state => ({
     basket: state.basket.basket,
+    role: state.auth.role
 })
 
 const mapDispatchToProps = dispatch => {

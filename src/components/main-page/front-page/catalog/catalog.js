@@ -5,6 +5,8 @@ import classnames from 'classnames';
 import {getGames} from "../../../../store/actions/games";
 import {connect} from "react-redux";
 import {getBestGames, getDiscounts, getNewGames} from "../../../../store/selectors/games";
+import {getRole} from "../../../../utils/utils";
+import {ANONYMOUS} from "../../../../utils/consts";
 
 
 const Catalog = (props)=>{

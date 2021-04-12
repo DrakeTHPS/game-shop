@@ -1,12 +1,12 @@
-import {GET_GAMES_ACTION, setGames} from "../actions/games";
+import {GET_GENRES_ACTION, setGenres} from "../actions/genres";
 
-export const gamesMiddleware = () => {
+export const genresMiddleware = () => {
     return store => next => action => {
         switch (action.type) {
-            case GET_GAMES_ACTION:
-                fetch("/games")
+            case GET_GENRES_ACTION:
+                fetch("/genres")
                     .then(response => response.json())
-                    .then(jsonData => store.dispatch(setGames(jsonData)));
+                    .then(jsonData => store.dispatch(setGenres(jsonData)));
                 break;
         }
 

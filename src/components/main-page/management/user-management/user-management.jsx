@@ -1,5 +1,5 @@
-// import React, { useState } from 'react';
-// import { EditingState } from '@devexpress/dx-react-grid';
+// import React, {useEffect, useState} from 'react';
+// import {EditingState} from '@devexpress/dx-react-grid';
 // import {
 //     Grid,
 //     Table,
@@ -8,83 +8,70 @@
 //     TableEditColumn,
 // } from '@devexpress/dx-react-grid-bootstrap4';
 // import '@devexpress/dx-react-grid-bootstrap4/dist/dx-react-grid-bootstrap4.css';
-//
-// import {
-//     generateRows,
-//     defaultColumnValues,
-// } from '../../../demo-data/generator';
+// import {getGames} from "../../../../store/actions/games";
+// import {connect} from "react-redux";
+// import {getGenres} from "../../../../store/actions/genres";
 //
 // const getRowId = row => row.id;
 //
-// export default () => {
+// const roles = ["ADMIN", "USER"];
+//
+// const GameManagement = (props) => {
+//
+//     useEffect(() => {
+//         props.getGames();
+//         props.getGenres();
+//     }, []);
+//
+//
 //     const [columns] = useState([
-//         { name: 'id', title: 'ID' },
-//         { name: 'name', title: 'Name' },
-//         { name: 'gender', title: 'Gender' },
-//         { name: 'city', title: 'City' },
-//         { name: 'car', title: 'Car' },
+//         {name: 'login', title: 'Логин'},
+//         {name: 'password', title: 'Пароль'},
+//         {name: 'role', title: 'Роль'},
 //     ]);
-//     const [rows, setRows] = useState(generateRows({
-//         columnValues: { id: ({ index }) => index, ...defaultColumnValues },
-//         length: 8,
-//     }));
+//
+//
 //     const [tableColumnExtensions] = useState([
-//         { columnName: 'id', width: 60 },
+//         {columnName: 'price', width: 80},
 //     ]);
-//     const [editingRowIds, setEditingRowIds] = useState([]);
-//     const [addedRows, setAddedRows] = useState([]);
-//     const [rowChanges, setRowChanges] = useState({});
 //
-//     const changeAddedRows = (value) => {
-//         const initialized = value.map(row => (Object.keys(row).length ? row : { city: 'Tokio' }));
-//         setAddedRows(initialized);
-//     };
-//
-//     const commitChanges = ({ added, changed, deleted }) => {
+//     const commitChanges = ({added, changed, deleted}) => {
 //         let changedRows;
 //         if (added) {
-//             const startingAddedId = rows.length > 0 ? rows[rows.length - 1].id + 1 : 0;
-//             changedRows = [
-//                 ...rows,
-//                 ...added.map((row, index) => ({
-//                     id: startingAddedId + index,
-//                     ...row,
-//                 })),
-//             ];
+//
 //         }
 //         if (changed) {
-//             changedRows = rows.map(row => (changed[row.id] ? { ...row, ...changed[row.id] } : row));
+//
 //         }
 //         if (deleted) {
-//             const deletedSet = new Set(deleted);
-//             changedRows = rows.filter(row => !deletedSet.has(row.id));
+//
 //         }
-//         setRows(changedRows);
+//
 //     };
 //
 //     return (
 //         <div className="card">
 //             <Grid
-//                 rows={rows}
+//                 rows={props.games ? props.games.map(game => {
+//                     return {
+//                         ...game,
+//                         genres: JSON.stringify(game.genres)
+//                     }
+//                 }) : []}
 //                 columns={columns}
 //                 getRowId={getRowId}
 //             >
+//
 //                 <EditingState
-//                     editingRowIds={editingRowIds}
-//                     onEditingRowIdsChange={setEditingRowIds}
-//                     rowChanges={rowChanges}
-//                     onRowChangesChange={setRowChanges}
-//                     addedRows={addedRows}
-//                     onAddedRowsChange={changeAddedRows}
 //                     onCommitChanges={commitChanges}
 //                 />
 //                 <Table
 //                     columnExtensions={tableColumnExtensions}
 //                 />
-//                 <TableHeaderRow />
-//                 <TableEditRow />
+//                 <TableHeaderRow/>
+//                 <TableEditRow/>
 //                 <TableEditColumn
-//                     showAddCommand={!addedRows.length}
+//                     showAddCommand
 //                     showEditCommand
 //                     showDeleteCommand
 //                 />
@@ -92,3 +79,17 @@
 //         </div>
 //     );
 // };
+//
+// const mapStateToProps = state => ({
+//     games: state.games.games,
+//     genres: state.genres.genres,
+// })
+//
+// const mapDispatchToProps = dispatch => {
+//     return {
+//         getGames: (game) => dispatch(getGames(game)),
+//         getGenres: () => dispatch(getGenres()),
+//     }
+// }
+//
+// export default connect(mapStateToProps, mapDispatchToProps)(GameManagement);

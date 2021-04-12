@@ -2,6 +2,7 @@
   "name": "game-shop",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:8080",
   "dependencies": {
     "@devexpress/dx-react-core": "^2.7.5",
     "@devexpress/dx-react-grid": "^2.7.5",
@@ -10,6 +11,7 @@
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.8.3",
     "bootstrap": "^4.6.0",
+    "multiselect-react-dropdown": "^1.6.11",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-icons": "^4.2.0",

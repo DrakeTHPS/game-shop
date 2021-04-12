@@ -1,0 +1,46 @@
+.authScreen{
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    flex:1;
+    color: white;
+    background: rgb(33,36,41);
+    background: linear-gradient(90deg, rgba(33,36,41,1) 78%, rgba(255,255,255,1) 100%);
+}
+
+.leftPart{
+    width: 50%;
+    padding: 5% 2% 0 20%;
+}
+
+.authBlock{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 50%;
+    justify-content: space-around;
+}
+
+.inputBlock{
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    color: lightgray;
+}
+
+.authInput{
+    height: 40px;
+    border: none;
+    border-radius: 2px;
+    margin: 2px;
+    background-color: #2a475e;
+    padding: 0 5px;
+    color: white;
+}
+
+.submitButton{
+    background-color: royalblue;
+    color: white;
+    border-radius: 2px;
+    padding: 5px 15px;
+}
