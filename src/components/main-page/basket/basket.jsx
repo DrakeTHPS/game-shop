@@ -9,6 +9,7 @@ import {auth} from "../../../utils/utils";
 
 const Basket = (props) => {
     const history = useHistory();
+
     const deleteFromBasket = (game) => {
         let newBasket = props.basket.filter(item => item !== game);
         props.setBasket(newBasket);

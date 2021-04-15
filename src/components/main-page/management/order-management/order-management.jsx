@@ -11,6 +11,7 @@ import '@devexpress/dx-react-grid-bootstrap4/dist/dx-react-grid-bootstrap4.css';
 import {connect} from "react-redux";
 import {Multiselect} from 'multiselect-react-dropdown';
 import {getOrders} from "../../../../store/actions/admin";
+import {deleteOrder} from "../../../../store/actions/adminManagement";
 
 const getRowId = row => row.id;
 
@@ -32,7 +33,7 @@ const OrderManagement = (props) => {
     ]);
     const commitChanges = ({deleted}) => {
         if (deleted) {
-
+            props.deleteOrders(deleted[0]);
         }
 
     };
@@ -74,6 +75,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => {
     return {
         getOrders: () => dispatch(getOrders()),
+        deleteOrders: (order) => dispatch(deleteOrder(order)),
     }
 }
 

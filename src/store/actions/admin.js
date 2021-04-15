@@ -1,9 +1,12 @@
 export const GET_GENRES_ACTION = 'GET_GENRES_ACTION';
 export const SET_GENRES_ACTION = 'SET_GENRES_ACTION';
+
 export const GET_USERS_ACTION = 'GET_USERS_ACTION';
 export const SET_USERS_ACTION = 'SET_USERS_ACTION';
+
 export const GET_ORDERS_ACTION = 'GET_ORDERS_ACTION';
 export const SET_ORDERS_ACTION = 'SET_ORDERS_ACTION';
+
 
 export const getGenres = genres =>({
     type: GET_GENRES_ACTION,
@@ -15,6 +18,7 @@ export const setGenres = genres =>({
     payload: genres
 })
 
+
 export const getUsers = users =>({
     type: GET_USERS_ACTION,
     payload: users
@@ -24,6 +28,7 @@ export const setUsers = users =>({
     type: SET_USERS_ACTION,
     payload: users
 })
+
 
 export const getOrders = orders =>({
     type: GET_ORDERS_ACTION,

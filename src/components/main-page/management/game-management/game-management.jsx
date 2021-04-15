@@ -12,6 +12,7 @@ import {getGames} from "../../../../store/actions/games";
 import {connect} from "react-redux";
 import {Multiselect} from 'multiselect-react-dropdown';
 import {getGenres} from "../../../../store/actions/admin";
+import {deleteGame} from "../../../../store/actions/adminManagement";
 
 const getRowId = row => row.id;
 
@@ -69,7 +70,6 @@ const GameManagement = (props) => {
     ]);
 
     const commitChanges = ({added, changed, deleted}) => {
-        let changedRows;
         if (added) {
 
         }
@@ -77,7 +77,7 @@ const GameManagement = (props) => {
 
         }
         if (deleted) {
-
+            props.deleteGame(deleted[0]);
         }
 
     };
@@ -124,8 +124,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
     return {
-        getGames: (game) => dispatch(getGames(game)),
+        getGames: () => dispatch(getGames()),
         getGenres: () => dispatch(getGenres()),
+        deleteGame: (game) => dispatch(deleteGame(game)),
     }
 }
 

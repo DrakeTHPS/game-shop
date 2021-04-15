@@ -12,6 +12,7 @@ import {connect} from "react-redux";
 import {getUsers} from "../../../../store/actions/admin";
 import {Form, Input} from "reactstrap";
 import {ADMIN, USER} from "../../../../utils/consts";
+import {deleteUser} from "../../../../store/actions/adminManagement";
 
 const getRowId = row => row.id;
 
@@ -78,7 +79,7 @@ const GameManagement = (props) => {
 
         }
         if (deleted) {
-
+            props.deleteUser(deleted[0]);
         }
 
     };
@@ -128,6 +129,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => {
     return {
         getUsers: () => dispatch(getUsers()),
+        deleteUser: (user) => dispatch(deleteUser(user)),
     }
 }
 
