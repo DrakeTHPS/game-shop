@@ -16,12 +16,18 @@ const AuthBlock = (props) => {
             method: "POST",
             body: JSON.stringify({login: login, password: password})
         })
-            .then(response => response.json())
+            .then(response => {
+                if (response.status === 200) {
+                    return response.json()
+                } else {
+                    throw new Error("Something went wrong")
+                }
+            })
             .then(jsonData => {
                 sessionStorage.setItem("jwt", JSON.stringify(jsonData));
                 props.setRole(jsonData.roles[0]);
                 history.push("/");
-            })
+            }).catch((error) => alert(error.message))
     }
     const [login, setLogin] = useState();
     const [password, setPassword] = useState();

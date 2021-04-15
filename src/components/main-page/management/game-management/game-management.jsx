@@ -11,7 +11,7 @@ import '@devexpress/dx-react-grid-bootstrap4/dist/dx-react-grid-bootstrap4.css';
 import {getGames} from "../../../../store/actions/games";
 import {connect} from "react-redux";
 import {Multiselect} from 'multiselect-react-dropdown';
-import {getGenres} from "../../../../store/actions/genres";
+import {getGenres} from "../../../../store/actions/admin";
 
 const getRowId = row => row.id;
 
@@ -64,12 +64,12 @@ const GameManagement = (props) => {
     const [multiSelectColumns] = useState(['genres']);
 
     const [tableColumnExtensions] = useState([
-        {columnName: 'price', width: 80},
+        {columnName: 'price', width: 70},
+        {columnName: 'releaseDate', width: 130},
     ]);
 
     const commitChanges = ({added, changed, deleted}) => {
         let changedRows;
-        console.log("Макс - лох")
         if (added) {
 
         }
@@ -119,7 +119,7 @@ const GameManagement = (props) => {
 
 const mapStateToProps = state => ({
     games: state.games.games,
-    genres: state.genres.genres,
+    genres: state.admin.genres,
 })
 
 const mapDispatchToProps = dispatch => {

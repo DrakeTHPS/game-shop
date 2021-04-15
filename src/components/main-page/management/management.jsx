@@ -45,13 +45,13 @@ const Management = (props) =>{
                 </Nav>
                 <TabContent activeTab={activeTab}>
                     <TabPane tabId="1">
-                        <GameManagement />
+                        <OrderManagement/>
                     </TabPane>
                     <TabPane tabId="2">
-                        <GameManagement />
+                        <GameManagement/>
                     </TabPane>
                     <TabPane tabId="3">
-                        <GameManagement />
+                        <UserManagement/>
                     </TabPane>
                 </TabContent>
             </div>
