@@ -6,8 +6,49 @@ export const manageGames = () => {
     return store => next => action => {
         switch (action.type) {
             case ADD_NEW_GAME:
+                fetch("/games/", {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        ...auth()
+                    },
+                    method: "POST",
+                    body: JSON.stringify(action.payload)
+                }).then(response => {
+                        if (response.status === 201) {
+                            return response.json();
+                        } else {
+                            alert("Не удалось добавить")
+                        }
+                    }
+                ).then(jsonData => {
+                    let games = store.getState().games.games.slice();
+                    games.push(jsonData);
+                    store.dispatch(setGames(games));
+                })
                 break;
             case EDIT_GAME:
+                fetch("/games/" + action.payload.id, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        ...auth()
+                    },
+                    method: "PUT",
+                    body: JSON.stringify(action.payload)
+                }).then(response => {
+                        if (response.status === 200) {
+                            let games = store.getState().games.games.slice();
+                            let changedGames = games.map(game =>
+                                game.id === action.payload.id ?
+                                    action.payload : game
+                            )
+                            store.dispatch(setGames(changedGames));
+                        } else {
+                            alert("Не удалось изменить")
+                        }
+                    }
+                )
                 break;
             case DELETE_GAME:
                 fetch("/games/" + action.payload, {

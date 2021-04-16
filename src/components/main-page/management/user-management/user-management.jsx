@@ -10,9 +10,9 @@ import {
 import '@devexpress/dx-react-grid-bootstrap4/dist/dx-react-grid-bootstrap4.css';
 import {connect} from "react-redux";
 import {getUsers} from "../../../../store/actions/admin";
-import {Form, Input} from "reactstrap";
+import {Input} from "reactstrap";
 import {ADMIN, USER} from "../../../../utils/consts";
-import {deleteUser} from "../../../../store/actions/adminManagement";
+import {addUser, deleteUser, editUser} from "../../../../store/actions/adminManagement";
 
 const getRowId = row => row.id;
 
@@ -27,8 +27,8 @@ const GameManagement = (props) => {
 
     const RoleEditor = ({value, onValueChange}) => {
         return (
-            <Input type="select" name="select" onChange={event => {onValueChange(event.target.value)}}>
-                {roles.map(role => <option value={role} selected={value===role}>{role}</option>)}
+            <Input type="select" name="select" value={value? value : "ROLE_ADMIN"} onChange={event => {onValueChange(event.target.value)}}>
+                {roles.map(role => <option value={role}>{role}</option>)}
             </Input>
         );
     }
@@ -64,19 +64,23 @@ const GameManagement = (props) => {
 
     const [tableColumnExtensions] = useState([
         {columnName: 'login', width: 250},
-        {columnName: 'role', width: 130},
+        {columnName: 'role', width: 200},
     ]);
 
     const [roleSelectColumns] = useState(['role']);
     const [passwordSelectColumns] = useState(['password']);
 
     const commitChanges = ({added, changed, deleted}) => {
-        let changedRows;
         if (added) {
-
+            props.addUser({...added[0], role: added[0].role? added[0].role : "ROLE_ADMIN"});
         }
         if (changed) {
-
+            props.users.forEach(row => {
+                if (changed[row.id]) {
+                    let editedRow = {...row, ...changed[row.id]};
+                    props.editUser(editedRow);
+                }
+            })
         }
         if (deleted) {
             props.deleteUser(deleted[0]);
@@ -129,6 +133,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => {
     return {
         getUsers: () => dispatch(getUsers()),
+        editUser: (user) => dispatch(editUser(user)),
+        addUser: (user) => dispatch(addUser(user)),
         deleteUser: (user) => dispatch(deleteUser(user)),
     }
 }

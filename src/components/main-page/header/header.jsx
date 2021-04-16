@@ -6,11 +6,14 @@ import {NavLink} from 'react-router-dom'
 import {connect} from "react-redux";
 import {ADMIN, ANONYMOUS} from "../../../utils/consts";
 import {setRole} from "../../../store/actions/auth";
+import {useHistory} from "react-router";
 
 const Header = (props) => {
+    const history = useHistory();
     const signOut = () =>{
         sessionStorage.clear();
         props.setRole(ANONYMOUS);
+        history.push("/");
     }
     return (
         <div className={styles.header}>
