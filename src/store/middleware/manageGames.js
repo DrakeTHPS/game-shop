@@ -18,14 +18,14 @@ export const manageGames = () => {
                         if (response.status === 201) {
                             return response.json();
                         } else {
-                            alert("Не удалось добавить")
+                            throw new Error("Не удалось добавить")
                         }
                     }
                 ).then(jsonData => {
                     let games = store.getState().games.games.slice();
                     games.push(jsonData);
                     store.dispatch(setGames(games));
-                })
+                }).catch((error) => alert(error.message))
                 break;
             case EDIT_GAME:
                 fetch("/games/" + action.payload.id, {
